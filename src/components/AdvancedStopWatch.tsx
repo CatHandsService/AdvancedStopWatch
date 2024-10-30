@@ -26,41 +26,66 @@ export default function AdvancedStopWatch() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [history, setHistory] = useState<{ time: number; laps: { time: number; overall: number }[] }[]>([]);
   const [selectedTab, setSelectedTab] = useState('laps');
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  // const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+// useEffect(() => {
+//     if (isRunning) {
+//       intervalRef.current = setInterval(() => {
+//         setTime(prevTime => prevTime + 10);
+//         setSplitTime(prevTime => prevTime + 10);
+//       }, 10);
+//     } else {
+//       if (intervalRef.current !== null) {
+//         clearInterval(intervalRef.current);
+//         intervalRef.current = null;
+//       }    }
+//       return () => {
+//         if (intervalRef.current !== null) {
+//           clearInterval(intervalRef.current);
+//         }
+//       };
+//   }, [isRunning]);
 useEffect(() => {
-    if (isRunning) {
-      intervalRef.current = setInterval(() => {
-        setTime(prevTime => prevTime + 10);
-        setSplitTime(prevTime => prevTime + 10);
-      }, 10);
-    } else {
-      if (intervalRef.current !== null) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }    }
-      return () => {
-        if (intervalRef.current !== null) {
-          clearInterval(intervalRef.current);
-        }
-      };
-  }, [isRunning]);
+  let animationFrameId: number | null = null;
+  let lastTime = performance.now();
 
+  const animate = (timestamp: number) => {
+    const deltaTime = timestamp - lastTime;
+    lastTime = timestamp;
+
+    if (isRunning) {
+      setTime((prevTime) => prevTime + deltaTime);
+      setSplitTime((prevTime) => prevTime + deltaTime);
+    }
+
+    animationFrameId = requestAnimationFrame(animate);
+  };
+
+  if (isRunning) {
+    animationFrameId = requestAnimationFrame(animate);
+  }
+
+  return () => {
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+    }
+  };
+}, [isRunning]);
   const handleStartStop = () => {
     setIsRunning(!isRunning);
   };
 
-  const handleReset = () => {
-    setTime(0);
-    setSplitTime(0);
-    setLaps([]);
-    setHistory([]);
-    setIsRunning(false);
-    if (intervalRef.current !== null) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  };
+  // const handleReset = () => {
+  //   setTime(0);
+  //   setSplitTime(0);
+  //   setLaps([]);
+  //   setHistory([]);
+  //   setIsRunning(false);
+  //   if (intervalRef.current !== null) {
+  //     clearInterval(intervalRef.current);
+  //     intervalRef.current = null;
+  //   }
+  // };
 
   const handleLap = () => {
     setLaps(prevLaps => [{ time: splitTime, overall: time }, ...prevLaps]);
