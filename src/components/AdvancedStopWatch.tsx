@@ -26,9 +26,9 @@ export default function AdvancedStopWatch() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [history, setHistory] = useState<{ time: number; laps: { time: number; overall: number }[] }[]>([]);
   const [selectedTab, setSelectedTab] = useState('laps');
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  useEffect(() => {
+useEffect(() => {
     if (isRunning) {
       intervalRef.current = setInterval(() => {
         setTime(prevTime => prevTime + 10);
