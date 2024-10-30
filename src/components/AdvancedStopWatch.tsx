@@ -1,6 +1,6 @@
 // 'use client'
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Button from './ui/Button';
 import Switch from './ui/Switch';
 import Tabs from './ui/Tabs';
@@ -75,17 +75,17 @@ useEffect(() => {
     setIsRunning(!isRunning);
   };
 
-  // const handleReset = () => {
-  //   setTime(0);
-  //   setSplitTime(0);
-  //   setLaps([]);
-  //   setHistory([]);
-  //   setIsRunning(false);
-  //   if (intervalRef.current !== null) {
-  //     clearInterval(intervalRef.current);
-  //     intervalRef.current = null;
-  //   }
-  // };
+  const handleReset = () => {
+    setTime(0);
+    setSplitTime(0);
+    setLaps([]);
+    setHistory([]);
+    setIsRunning(false);
+    // if (intervalRef.current !== null) {
+    //   clearInterval(intervalRef.current);
+    //   intervalRef.current = null;
+    // }
+  };
 
   const handleLap = () => {
     setLaps(prevLaps => [{ time: splitTime, overall: time }, ...prevLaps]);
