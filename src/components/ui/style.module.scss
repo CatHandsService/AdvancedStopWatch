@@ -1,0 +1,39 @@
+.button {
+  margin: 4px;
+  padding: 8px;
+}
+
+.scrollArea {
+  min-height: 1rem;
+  max-height: 160px;
+  overflow-y: auto;
+  padding: 4px;
+  // border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: auto;
+  scrollbar-width: none; /* Firefox用 */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera 用 */
+  }
+}
+
+.switch {
+  margin: 4px;
+}
+
+.tabs {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.tabList {
+  display: flex;
+  justify-content: space-around;
+}
+
+.tabPanel {
+  padding: 8px;
+  border-top: 1px solid #ddd;
+}
