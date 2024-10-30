@@ -25,7 +25,7 @@ export default function AdvancedStopWatch() {
   const [isDigital, setIsDigital] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [history, setHistory] = useState<{ time: number; laps: { time: number; overall: number }[] }[]>([]);
-  const intervalRef = useRef<number | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [selectedTab, setSelectedTab] = useState('laps');
 
 
