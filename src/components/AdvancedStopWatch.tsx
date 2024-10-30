@@ -1,6 +1,6 @@
 // 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Button from './ui/Button';
 import Switch from './ui/Switch';
 import Tabs from './ui/Tabs';
@@ -26,51 +26,26 @@ export default function AdvancedStopWatch() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [history, setHistory] = useState<{ time: number; laps: { time: number; overall: number }[] }[]>([]);
   const [selectedTab, setSelectedTab] = useState('laps');
-  // const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-// useEffect(() => {
-//     if (isRunning) {
-//       intervalRef.current = setInterval(() => {
-//         setTime(prevTime => prevTime + 10);
-//         setSplitTime(prevTime => prevTime + 10);
-//       }, 10);
-//     } else {
-//       if (intervalRef.current !== null) {
-//         clearInterval(intervalRef.current);
-//         intervalRef.current = null;
-//       }    }
-//       return () => {
-//         if (intervalRef.current !== null) {
-//           clearInterval(intervalRef.current);
-//         }
-//       };
-//   }, [isRunning]);
 useEffect(() => {
-  let animationFrameId: number | null = null;
-  let lastTime = performance.now();
-
-  const animate = (timestamp: number) => {
-    const deltaTime = timestamp - lastTime;
-    lastTime = timestamp;
-
     if (isRunning) {
-      setTime((prevTime) => prevTime + deltaTime);
-      setSplitTime((prevTime) => prevTime + deltaTime);
-    }
+      intervalRef.current = setInterval(() => {
+        setTime(prevTime => prevTime + 10);
+        setSplitTime(prevTime => prevTime + 10);
+      }, 10);
+    } else {
+      if (intervalRef.current !== null) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }    }
+      return () => {
+        if (intervalRef.current !== null) {
+          clearInterval(intervalRef.current);
+        }
+      };
+  }, [isRunning]);
 
-    animationFrameId = requestAnimationFrame(animate);
-  };
-
-  if (isRunning) {
-    animationFrameId = requestAnimationFrame(animate);
-  }
-
-  return () => {
-    if (animationFrameId) {
-      cancelAnimationFrame(animationFrameId);
-    }
-  };
-}, [isRunning]);
   const handleStartStop = () => {
     setIsRunning(!isRunning);
   };
@@ -81,10 +56,10 @@ useEffect(() => {
     setLaps([]);
     setHistory([]);
     setIsRunning(false);
-    // if (intervalRef.current !== null) {
-    //   clearInterval(intervalRef.current);
-    //   intervalRef.current = null;
-    // }
+    if (intervalRef.current !== null) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
   };
 
   const handleLap = () => {
