@@ -15,6 +15,7 @@ import FlagIcon from '@mui/icons-material/Flag';
 import SaveIcon from '@mui/icons-material/Save';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 // import { Tabs } from '@mui/material';
 
 export default function AdvancedStopWatch() {
@@ -54,12 +55,15 @@ export default function AdvancedStopWatch() {
     setTime(0);
     setSplitTime(0);
     setLaps([]);
-    setHistory([]);
     setIsRunning(false);
     if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
+  };
+
+  const handleSessionReset = () => {
+    setHistory([]);
   };
 
   const handleLap = () => {
@@ -175,10 +179,16 @@ export default function AdvancedStopWatch() {
           </div>
         </Tabs>
 
-        <Button onClick={handleSaveHistory} className={styles.saveButton}>
-          <SaveIcon />
-          Save Session
-        </Button>
+        <div className={styles.historyContainer}>
+          <Button onClick={handleSaveHistory} variant="outlined"  className={styles.saveButton}>
+            <SaveIcon />
+            Save Session
+          </Button>
+          <Button onClick={handleSessionReset} variant="outlined" className={styles.historyResetButton}>
+            <DeleteForeverIcon />
+            Reset History
+          </Button>
+        </div>
       </div>
     </div>
   );
