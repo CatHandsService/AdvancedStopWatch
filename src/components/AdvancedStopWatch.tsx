@@ -28,7 +28,7 @@ export default function AdvancedStopWatch() {
   const [selectedTab, setSelectedTab] = useState('laps');
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-useEffect(() => {
+  useEffect(() => {
     if (isRunning) {
       intervalRef.current = setInterval(() => {
         setTime(prevTime => prevTime + 10);
