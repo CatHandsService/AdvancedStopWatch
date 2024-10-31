@@ -5,7 +5,7 @@ import Button from './ui/Button';
 import Switch from './ui/Switch';
 import Tabs from './ui/Tabs';
 import ScrollArea from './ui/ScrollArea';
-import styles from './AdvancedStopWatch.module.scss';
+import styles from './advancedStopWatch.module.scss';
 
 // Material-UIのアイコン
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
