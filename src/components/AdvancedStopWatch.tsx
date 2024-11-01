@@ -8,8 +8,8 @@ import ScrollArea from './ui/ScrollArea';
 import styles from './advancedStopWatch.module.scss';
 
 // Material-UIのアイコン
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import PauseIcon from '@mui/icons-material/Pause';
+import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
+import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import FlagIcon from '@mui/icons-material/Flag';
 import SaveIcon from '@mui/icons-material/Save';
@@ -106,7 +106,7 @@ export default function AdvancedStopWatch() {
             <div className={styles.buttonGroup}>
               <Button onClick={handleReset} variant="outlined" className={styles.resetButton}>
                 <RotateLeftIcon />
-                  Reset
+                Reset
               </Button>
               <Button onClick={handleLap} disabled={!isRunning} className={`
                 ${styles.lapButton}
@@ -131,8 +131,8 @@ export default function AdvancedStopWatch() {
               ${isDarkMode ? styles.darkMode : ""}
             `} onClick={handleStartStop}>
               {isRunning
-                ? <PauseIcon className={styles.playIcon}/>
-                : <PlayArrowIcon className={styles.playIcon}/>
+                ? <PauseRoundedIcon className={styles.playIcon}/>
+                : <PlayArrowRoundedIcon className={styles.playIcon}/>
               }
               {isDigital ? (
                   <div className={`${styles.digitalDisplay} ${isDarkMode ? styles.darkMode : ""}`}>{formatTime(time)}</div>
