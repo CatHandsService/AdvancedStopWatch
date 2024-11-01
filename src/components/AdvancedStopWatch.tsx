@@ -92,50 +92,62 @@ export default function AdvancedStopWatch() {
     <div className={`${styles.container} ${isDarkMode ? styles.dark : ''}`}>
       <div className={styles.stopwatch}>
         <div className={styles.topBarContainer}>
-          <div>
+          {/* <div>
             <Switch checked={isDigital} onChange={(e: { target: { checked: boolean | ((prevState: boolean) => boolean); }; }) => setIsDigital(e.target.checked)} className={styles.switch} />
             <span className={styles.displayMode}>{isDigital ? 'Digital' : 'Analog'}</span>
-          </div>
+          </div> */}
           <Button onClick={() => setIsDarkMode(!isDarkMode)} variant="contained">
             {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
           </Button>
         </div>
 
-        <div className={styles.timeContainer}>
-          {isDigital ? (
-            <div className={styles.digitalDisplay}>{formatTime(time)}</div>
-          ) : (
-            <div className={styles.analogClock}>
-              <div className={styles.clockBorder} />
-              <div className={styles.clockHand} style={{ transform: `rotate(${(time / 60000) * 360}deg)` }} />
+        <div style={{position: "relative"}}>
+          <div className={styles.timeContainer}>
+            <div className={styles.buttonGroup}>
+              <Button onClick={handleReset} variant="outlined" className={styles.resetButton}>
+                <RotateLeftIcon />
+                  Reset
+              </Button>
+              <Button onClick={handleLap} disabled={!isRunning} className={`
+                ${styles.lapButton}
+                ${isRunning? styles.start: styles.stop}
+              `}>
+                <FlagIcon />
+                Lap
+              </Button>
+              <Button onClick={handleSaveHistory} variant="outlined"  className={styles.saveButton}>
+                <SaveIcon />
+                Save
+              </Button>
+              <Button onClick={handleSessionReset} variant="outlined" className={styles.historyResetButton}>
+                <DeleteForeverIcon />
+                Clear
+              </Button>
             </div>
-          )}
 
-          <div className={styles.splitTime}>Split Time: {formatTime(splitTime)}</div>
+            <Button className={`
+              ${styles.clockBorder}
+              ${isRunning ? styles.isRunning : ""}
+              ${isDarkMode ? styles.darkMode : ""}
+            `} onClick={handleStartStop}>
+              {isRunning
+                ? <PauseIcon className={styles.playIcon}/>
+                : <PlayArrowIcon className={styles.playIcon}/>
+              }
+              {isDigital ? (
+                  <div className={`${styles.digitalDisplay} ${isDarkMode ? styles.darkMode : ""}`}>{formatTime(time)}</div>
+                ) : (
+                  <div className={styles.analogClock}>
+                    <div className={styles.clockHand} style={{ transform: `rotate(${(time / 60000) * 360}deg)` }} />
+                  </div>
+                )}
+              <div className={`${styles.splitTime}  ${isDarkMode ? styles.darkMode : ""}`}>Split Time<br/>{formatTime(splitTime)}</div>
+            </Button>
+          </div>
+
 
         </div>
 
-        <div className={styles.buttonGroup}>
-          <Button onClick={handleStartStop} className={`
-            ${styles.startStopButton}
-            ${isRunning? styles.start: styles.stop}
-          `}>
-            {isRunning ? <PauseIcon /> : <PlayArrowIcon />}
-            {isRunning ? 'Stop' : 'Start'}
-          </Button>
-          <Button onClick={handleLap} disabled={!isRunning} className={`
-            ${styles.lapButton}
-            ${isRunning? styles.start: styles.stop}
-          `}>
-            <FlagIcon />
-            Lap
-          </Button>
-        </div>
-
-        <Button onClick={handleReset} variant="outlined" className={styles.resetButton}>
-          <RotateLeftIcon />
-          Reset
-        </Button>
 
         <Tabs defaultValue={selectedTab} onChange={handleTabChange} >
           <div  className={styles.tabsContainer}>
@@ -178,17 +190,6 @@ export default function AdvancedStopWatch() {
 
           </div>
         </Tabs>
-
-        <div className={styles.historyContainer}>
-          <Button onClick={handleSaveHistory} variant="outlined"  className={styles.saveButton}>
-            <SaveIcon />
-            Save Session
-          </Button>
-          <Button onClick={handleSessionReset} variant="outlined" className={styles.historyResetButton}>
-            <DeleteForeverIcon />
-            Reset History
-          </Button>
-        </div>
       </div>
     </div>
   );
