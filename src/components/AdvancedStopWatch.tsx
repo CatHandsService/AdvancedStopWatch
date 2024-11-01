@@ -96,7 +96,7 @@ export default function AdvancedStopWatch() {
             <Switch checked={isDigital} onChange={(e: { target: { checked: boolean | ((prevState: boolean) => boolean); }; }) => setIsDigital(e.target.checked)} className={styles.switch} />
             <span className={styles.displayMode}>{isDigital ? 'Digital' : 'Analog'}</span>
           </div>
-          <Button onClick={() => setIsDarkMode(!isDarkMode)} variant="contained">
+          <Button className={styles.brightness} onClick={() => setIsDarkMode(!isDarkMode)} variant="contained">
             {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
           </Button>
         </div>

@@ -15,13 +15,10 @@
   width: calc(100%);
   min-width: 365px;
   min-height: 100vh;
-  // margin-inline: auto;
-  // padding: 1rem;
   font-family: 'Roboto Mono', monospace;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .stopwatch {
@@ -39,6 +36,10 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
+
+    .brightness {
+      outline: none;
+    }
   }
 }
 
@@ -93,6 +94,7 @@
     transition: .1s ease-in-out;
     position: relative;
     z-index: 10;
+    outline: none;
 
     &.isRunning {
       border: 4px double #3b82f6;
@@ -107,14 +109,6 @@
     .playIcon {
       margin-top: 15px;
       font-size: 3rem;
-    }
-
-    .clockButton {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      outline: none;
     }
 
     .digitalDisplay {
@@ -172,6 +166,7 @@
       width: 100%;
       height: 120px;
       display: flex;
+      outline: none;
     }
 
     .lapButton {
